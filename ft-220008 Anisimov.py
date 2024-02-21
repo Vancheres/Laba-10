@@ -41,3 +41,38 @@ def main():
     """
     Основная функция игры.
     """
+    # Запрашиваем у пользователя N и k
+    logging.info('Начало игры.')
+    n = get_number('Введите N (максимальное число): ', 1, None)
+    k = get_number('Введите k (количество попыток): ', 1, None)
+
+    # Загадываем число
+    logging.info('Загадываем число...')
+    secret_number = random.randint(1, n)
+
+    # Цикл игры
+    for i in range(k):
+        # Запрашиваем число у пользователя
+        logging.info('Попытка {} из {}.'.format(i + 1, k))
+        guess = get_number('Введите число: ', 1, n)
+
+        # Сравниваем с загаданным числом
+        if guess == secret_number:
+            logging.info('Число угадано!')
+            print(Fore.GREEN + 'Вы угадали!')
+            break
+        elif guess < secret_number:
+            logging.info('Введенное число меньше.')
+            print(Fore.YELLOW + 'Загаданное число больше.')
+        else:
+            logging.info('Введенное число больше.')
+            print(Fore.YELLOW + 'Загаданное число меньше.')
+
+    # Выводим результат игры
+    if i == k - 1:
+        logging.info('Попытки закончились.')
+        print(Fore.RED + 'Попытки закончились. Загаданное число было {}.'.format(secret_number))
+
+
+if __name__ == '__main__':
+    main()
